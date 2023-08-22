@@ -15,7 +15,6 @@ public class TestNgzDemo {
 	public void launch() throws Exception {
 		driver = new ChromeDriver();
 		driver.get("https://google.com");
-//		throw new Exception();
 	}
 	
 	@Test ()
@@ -28,9 +27,6 @@ public class TestNgzDemo {
 	
 	@Test ()
 	public void search2() {
-//		WebElement search = driver.findElement(By.name("q"));
-//		search.sendKeys("Selenium");
-//		search.submit();
 		System.out.println("Method 2");
 	}
 	
