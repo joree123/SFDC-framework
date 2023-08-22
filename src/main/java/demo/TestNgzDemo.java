@@ -32,6 +32,13 @@ public class TestNgzDemo {
 		search.submit();
 		System.out.println("Method 1");
 	}
+	@Test ()
+	public void search2() {
+		WebElement search = driver.findElement(By.name("q"));
+		search.sendKeys("Selenium");
+		search.submit();
+		System.out.println("Method 1");
+	}
 	
 	@Test ()
 	public void search2() {
