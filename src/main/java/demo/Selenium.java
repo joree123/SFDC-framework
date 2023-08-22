@@ -25,9 +25,6 @@ public class Selenium {
 		
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		
-//		System.setProperty("webdriver.chrome", "/Users/user/Downloads/chromedriver_mac_arm64/chromedriver");
-//		WebDriverManager.chromedriver().setup();
-		
 		driver.get("https://login.salesforce.com/");
 		
 		WebElement email = driver.findElement(By.id("username"));
@@ -38,7 +35,6 @@ public class Selenium {
 		
 		driver.findElement(By.id("Login")).click();
 		
-//		Thread.sleep(5000); // hard wait
 		
 		String expected = "Please check your username and password. If you still can't log in, contact your Salesforce administrator.";
 		
@@ -53,31 +49,6 @@ public class Selenium {
 			
 			String actual = errorText.getText();
 		}
-		
-		
-		
-		
-		
-		
-//		if(actual.equals(expected)) {
-//			System.out.println("PASSED");
-//		} else {
-//			System.out.println("FAILED");
-//		}
-//		
-		
-		
-		
-//		Wait<WebDriver> waitFluent = new FluentWait<WebDriver>(driver)
-//				.withTimeout(Duration.ofSeconds(30))
-//				.pollingEvery(Duration.ofSeconds(5))
-//				.ignoring(NoSuchElementException.class);
-//		
-//		WebElement ele = wait.until(new Function<WebDriver, WebElement>() {
-//			public WebElement apply(WebDriver driver) {
-//				return driver.findElement(By.id("error"));
-//			}
-//		});
 		
 		
 	}
