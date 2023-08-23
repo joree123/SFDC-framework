@@ -41,7 +41,12 @@ public class TestNgzDemo {
 	}
 	
 	@Test ()
-	public void search2() {
+	public void search3() {
+		System.out.println("Method 2");
+	}
+	
+	@Test ()
+	public void search4() {
 		System.out.println("Method 2");
 	}
 	
