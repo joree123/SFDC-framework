@@ -40,5 +40,15 @@ public class LoginPage extends BasePage{
 	@FindBy(xpath = "//a[text()='Return to Login']")
 	public WebElement returnToLoginButton;
 	
+	
+	public boolean selectRememberMeCheckBox() {
+		boolean isSelected = false;
+		if(! rememberMe.isSelected()) {
+			rememberMe.click();
+			isSelected = true;
+		} 
+		return isSelected;
+	}
+	
 
 }
