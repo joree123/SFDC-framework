@@ -6,7 +6,9 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 
 public class BaseTest {
 	private static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<>();
@@ -18,9 +20,9 @@ public class BaseTest {
 //	Proper reporting - Accurate Assertion, Screenshots
 //	Support of Logs in the framework
 	
-	@BeforeMethod
+	@BeforeTest
 	public static void setDriver() {
-		WebDriver driver = BaseTest.getBrowserType("chrome");
+		WebDriver driver = BaseTest.getBrowserType("safari");
 		threadLocalDriver.set(driver);
 	}
 	
@@ -30,7 +32,7 @@ public class BaseTest {
 	}
 	
 	
-	@AfterMethod
+	@AfterTest
 	public static void removeDriver() {
 		getDriver().close();
 		threadLocalDriver.remove();
