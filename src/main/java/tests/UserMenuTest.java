@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import constants.FileConstants;
 import pages.LoginPage;
@@ -24,6 +25,8 @@ public class UserMenuTest extends BaseTest {
 	@Test ()
 	public void userMenuDropDown_TC06() throws IOException, InterruptedException {
 		
+		SoftAssert softAssert = new SoftAssert();
+		
 		WebDriver driver = BaseTest.getDriver();
 		UserMenuPage ump = new UserMenuPage(driver);
 		CommonUtils.waitForElement(driver, ump.userMenu);
@@ -38,6 +41,8 @@ public class UserMenuTest extends BaseTest {
 		Assert.assertTrue(ump.verifyCreatePost(driver, "Hello welcome to java"));
 		Assert.assertTrue(ump.verifyFileUpload(driver, FileConstants.LOGIN_TESTDATA_FILE_PATH));
 		Assert.assertTrue(ump.verifyPhotoUpload(driver, FileConstants.PROFILE_PHOTO_FILE_PATH));
+		
+//		Assert.assertEquals(ump.selectRandomOption(), "My profile", "Failed");
 		
 	}
 

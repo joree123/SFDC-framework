@@ -2,6 +2,7 @@ package tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
@@ -22,7 +23,7 @@ public class BaseTest {
 	
 	@BeforeTest
 	public static void setDriver() {
-		WebDriver driver = BaseTest.getBrowserType("chrome");
+		WebDriver driver = BaseTest.getBrowserType("chrome", true);
 		threadLocalDriver.set(driver);
 	}
 	
@@ -38,15 +39,18 @@ public class BaseTest {
 		threadLocalDriver.remove();
 	}
 	
-	public static WebDriver getBrowserType(String browserName) {
-		
+	public static WebDriver getBrowserType(String browserName, boolean headless) {
 		WebDriver driver;
-		
 		String browserType = browserName.toLowerCase();
-		
 		switch (browserType) {
 		case "chrome":
-			driver = new ChromeDriver();
+			if(headless) {
+				ChromeOptions co = new ChromeOptions();
+				co.addArguments("--headless");
+				driver = new ChromeDriver(co);
+			} else {
+				driver = new ChromeDriver();
+			}
 			break;
 			
 		case "firefox":
@@ -67,8 +71,6 @@ public class BaseTest {
 		}
 		
 		return driver;
-		
 	}
-	
 
 }

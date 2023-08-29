@@ -382,4 +382,10 @@ public class UserMenuPage extends BasePage {
 		return isUploadSuccess;
 	}
 
+	
+	public String selectRandomOption() {
+		
+		
+		return "Option Value";
+	}
 }
