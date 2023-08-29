@@ -39,6 +39,6 @@ public class CommonUtils {
 	
 	public static void moveToElement(WebDriver driver, WebElement element) {
 		Actions action = new Actions(driver);
-		action.moveToElement(element);
+		action.moveToElement(element).build().perform();
 	}
 }

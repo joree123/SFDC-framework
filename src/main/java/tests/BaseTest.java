@@ -22,7 +22,7 @@ public class BaseTest {
 	
 	@BeforeTest
 	public static void setDriver() {
-		WebDriver driver = BaseTest.getBrowserType("safari");
+		WebDriver driver = BaseTest.getBrowserType("chrome");
 		threadLocalDriver.set(driver);
 	}
 	

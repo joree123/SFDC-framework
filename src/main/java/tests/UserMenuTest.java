@@ -39,7 +39,6 @@ public class UserMenuTest extends BaseTest {
 		Assert.assertTrue(ump.verifyFileUpload(driver, FileConstants.LOGIN_TESTDATA_FILE_PATH));
 		Assert.assertTrue(ump.verifyPhotoUpload(driver, FileConstants.PROFILE_PHOTO_FILE_PATH));
 		
-//		img[class='spinny']
 	}
 
 }

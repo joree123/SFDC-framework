@@ -206,6 +206,15 @@ public class UserMenuPage extends BasePage {
 	@FindBy(xpath = "(//*[@class='contentFileTitle'])[1]")
 	public WebElement verifyFilePostElement;
 
+	@FindBy(name = "j_id0:waitingForm")
+	public WebElement spinnerIcon;
+	
+	@FindBy(id = "cropWaitingPage:croppingForm")
+	public WebElement spinnerWhileCropping;
+	
+	@FindBy(id = "progressIcon")
+	public WebElement fileUploadSpinner;
+
 	/**
 	 * This function can be called to select option from user menu options
 	 * 
@@ -312,10 +321,11 @@ public class UserMenuPage extends BasePage {
 			driver.switchTo().parentFrame();
 			if (shareButton.isDisplayed()) {
 				shareButton.click();
-				Thread.sleep(2000); // this to be replaced with invisibility of an element
+//				Thread.sleep(2000); // this to be replaced with invisibility of an element
+				CommonUtils.waitForElementToDisappear(driver, shareButton);
 			}
 //			if (firstPostText.isDisplayed()) {
-				verifyCreatePost = true;
+			verifyCreatePost = true;
 //			}
 		}
 		return verifyCreatePost;
@@ -332,7 +342,7 @@ public class UserMenuPage extends BasePage {
 			if (CommonUtils.waitForElement(driver, Fileopen)) {
 				Fileopen.sendKeys(sFilePath);
 				shareButton.click();
-				Thread.sleep(WaitConstants.WAIT_FOR_UPLOAD_TO_FINISH);
+//				Thread.sleep(WaitConstants.WAIT_FOR_UPLOAD_TO_FINISH);
 				if (CommonUtils.waitForElementToDisappear(driver, cancelUpload)) {
 					if (verifyFilePostElement.isDisplayed()) {
 						isFileUploadSuccess = true;
@@ -342,27 +352,31 @@ public class UserMenuPage extends BasePage {
 		}
 		return isFileUploadSuccess;
 	}
-	
+
 	public void clickOnUpdatePhotoButton(WebDriver driver) {
 		CommonUtils.moveToElement(driver, moderatorButton);
-		if(updateButton.isDisplayed()) {
+		if (updateButton.isDisplayed()) {
 			updateButton.click();
 		}
 	}
-	
+
 	public boolean verifyPhotoUpload(WebDriver driver, String sPhotoPath) throws InterruptedException {
 		boolean isUploadSuccess = false;
 		clickOnUpdatePhotoButton(driver);
 		driver.switchTo().frame(photoUploadIframe);
-		if(CommonUtils.waitForElement(driver, uploadphoto)) {
+		if (CommonUtils.waitForElement(driver, uploadphoto)) {
 			uploadphoto.sendKeys(sPhotoPath);
 			photoSaveButton.click();
-			Thread.sleep(4000);
+
+//			Thread.sleep(4000);
 		}
-		if(CommonUtils.waitForElement(driver, photoSaveButton2)) {
+		if (CommonUtils.waitForElementToDisappear(driver, spinnerIcon)
+				&& CommonUtils.waitForElement(driver, photoSaveButton2)) {
 			photoSaveButton2.click();
-			Thread.sleep(4000);
-			isUploadSuccess = true;
+//			Thread.sleep(4000);
+			if(CommonUtils.waitForElementToDisappear(driver, spinnerWhileCropping)) {
+				isUploadSuccess = true;
+			}
 		}
 		driver.switchTo().parentFrame();
 		return isUploadSuccess;
