@@ -240,7 +240,7 @@ public class UserMenuPage extends BasePage {
 	 * @throws IOException
 	 */
 	public boolean verifyUserMenuItems() throws IOException {
-
+		logger.info("UserMenuPage : verifyUserMenuItems : started");
 		boolean isOptionsVerified = true;
 		String[] expectedUserMenuItems = FileUtils.readUserMenuTestData("usermenu.items").split(",");
 		for (int i = 0; i < expectedUserMenuItems.length; i++) {
@@ -248,6 +248,7 @@ public class UserMenuPage extends BasePage {
 			if (expectedUserMenuItems[i].equals(actualOption)) {
 				System.out.println("Expected Option " + expectedUserMenuItems[i] + " Actual Option" + actualOption);
 			} else {
+				logger.warn("UserMenuPage : verifyUserMenuItems : Failed to match the order of usermenu");
 				System.out.println("Expected Option " + expectedUserMenuItems[i] + "failed to match with Actual Option"
 						+ actualOption);
 				isOptionsVerified = false;

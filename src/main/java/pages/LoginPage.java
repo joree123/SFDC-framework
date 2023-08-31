@@ -46,21 +46,27 @@ public class LoginPage extends BasePage {
 	public WebElement returnToLoginButton;
 
 	public boolean selectRememberMeCheckBox() {
+		logger.info("LoginPage : selectRememberMeCheckBox : Started");
 		boolean isSelected = false;
 		if (!rememberMe.isSelected()) {
+			logger.info("LoginPage : selectRememberMeCheckBox : remember me checkbox selected");
 			rememberMe.click();
 			isSelected = true;
 		}
+		logger.info("LoginPage : selectRememberMeCheckBox : Ended");
 		return isSelected;
 	}
 
 	public void loginToApp(WebDriver driver) throws IOException {
 		driver.get(FileUtils.readPropertiesFile(FileConstants.LOGIN_TESTDATA_FILE_PATH2, "prod.url"));
+		logger.info("LoginPage : loginToApp : started");
 		driver.manage().window().maximize();
+		logger.info("LoginPage : loginToApp : Window maximized");
 		if (CommonUtils.waitForElement(driver, username)) {
 			username.sendKeys(FileUtils.readPropertiesFile(FileConstants.LOGIN_TESTDATA_FILE_PATH2, "username"));
 			password.sendKeys(FileUtils.readPropertiesFile(FileConstants.LOGIN_TESTDATA_FILE_PATH2, "password"));
 			loginButton.click();
+			logger.info("LoginPage : loginToApp : clicked ion login button");
 		}
 	}
 }

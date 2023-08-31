@@ -1,0 +1,12 @@
+2023-09-01-00:21:10 INFO  BaseTest : setDriver :  Spark report configured
+2023-09-01-00:21:10 INFO  BaseTest : getBrowserType : Headless chrome configured
+2023-09-01-00:21:13 INFO  BaseTest : setDriver : driver object assigned
+2023-09-01-00:21:15 INFO  LoginPage : loginToApp : started
+2023-09-01-00:21:15 INFO  LoginPage : loginToApp : Window maximized
+2023-09-01-00:21:17 INFO  LoginPage : loginToApp : clicked ion login button
+2023-09-01-00:21:17 INFO  BaseTest : setup : userMenuDropDown_TC08 Test Object for reporting is created
+2023-09-01-00:21:17 INFO  BaseTest : setup : userMenuDropDown_TC07 Test Object for reporting is created
+2023-09-01-00:21:17 INFO  BaseTest : setup : userMenuDropDown_TC09 Test Object for reporting is created
+2023-09-01-00:21:21 INFO  BaseTest : setup : userMenuDropDown_TC06 Test Object for reporting is created
+2023-09-01-00:21:30 INFO  UserMenuPage : verifyUserMenuItems : started
+2023-09-01-00:22:13 INFO  BaseTest : removeDriver : removed driver
