@@ -1,6 +1,7 @@
 package tests;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,24 +12,37 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import constants.FileConstants;
+import pages.LoginPage;
 
 public class BaseTest {
 	private static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<>();
 	
-	static ExtentReports extent = new ExtentReports();
-	static ExtentSparkReporter spark = null;
+	protected static ExtentReports extent = new ExtentReports();
+	protected static ExtentSparkReporter spark = null;
 	public static ExtentTest test = null;
 	
 	public static Logger logger = LogManager.getLogger("BASETEST");
+	
+	@BeforeSuite
+	public void configureReport() {
+//		extent = new ExtentReports();
+		spark = new ExtentSparkReporter(new File(FileConstants.REPORT_PATH));
+		extent.attachReporter(spark);
+		
+		
+	}
 	
 //	Requirements
 //	Cross browser support
@@ -36,26 +50,33 @@ public class BaseTest {
 //	Proper reporting - Accurate Assertion, Screenshots
 //	Support of Logs in the framework
 	
-	@BeforeMethod
-	public void setup(Method name) {
-		BaseTest.test = extent.createTest(name.getName());
-		logger.info("BaseTest : setup : "+ name.getName()+" Test Object for reporting is created");
-	}
+//	@BeforeMethod
+//	public void setup(Method name) throws IOException {
+////		BaseTest.test = extent.createTest(name.getName());
+//		logger.info("BaseTest : setup : "+ name.getName()+" Test Object for reporting is created");
+//		WebDriver driver = BaseTest.getDriver();
+//		LoginPage lp = new LoginPage(driver);
+//		lp.loginToApp(driver);
+//	}
 	
 	@AfterTest
 	public void tearDown(Method name) {
-		logger.info("BaseTest : tearDown : "+ name.getName()+" Tear downn called");
+		extent.flush();
 		
 	}
 	
-	@BeforeTest
-	public static void setDriver() {
-		spark = new ExtentSparkReporter(new File(FileConstants.REPORT_PATH));
-		extent.attachReporter(spark);
+	
+	@Parameters({"browserName","isHeadless"})
+	@BeforeMethod
+	public static void setDriver(String browserName, boolean isHeadless, Method name) throws IOException {
+//		spark = new ExtentSparkReporter(new File(FileConstants.REPORT_PATH));
+//		extent.attachReporter(spark);
 		logger.info("BaseTest : setDriver :  Spark report configured");
-		WebDriver driver = BaseTest.getBrowserType("chrome", true);
+		WebDriver driver = BaseTest.getBrowserType(browserName, isHeadless);
 		logger.info("BaseTest : setDriver : driver object assigned");
 		threadLocalDriver.set(driver);
+		logger.info("BaseTest : setup : "+ name.getName()+" Test Object for reporting is created");
+		
 	}
 	
 	
@@ -64,12 +85,12 @@ public class BaseTest {
 	}
 	
 	
-	@AfterTest
+	@AfterMethod
 	public static void removeDriver() {
-		getDriver().close();
+		BaseTest.getDriver().close();
 		threadLocalDriver.remove();
 		logger.info("BaseTest : removeDriver : removed driver");
-		extent.flush();
+		
 	}
 	
 	public static WebDriver getBrowserType(String browserName, boolean headless) {

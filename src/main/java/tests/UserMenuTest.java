@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -17,20 +18,21 @@ import pages.LoginPage;
 import pages.UserMenuPage;
 import utils.CommonUtils;
 
-@Listeners(SFDCListeners.class)
+//@Listeners(SFDCListeners.class)
 public class UserMenuTest extends BaseTest {
 	
-	@BeforeClass
+//	@BeforeMethod()
 	public void navigateToHome() throws IOException {
+//		WebDriver driver = BaseTest.getDriver();
+		
+	}
+
+	@Test ()
+	public void userMenuDropDown_TC06(Method name) throws IOException, InterruptedException {
+//		SoftAssert softAssert = new SoftAssert();
 		WebDriver driver = BaseTest.getDriver();
 		LoginPage lp = new LoginPage(driver);
 		lp.loginToApp(driver);
-	}
-
-	@Test (priority = 4)
-	public void userMenuDropDown_TC06(Method name) throws IOException, InterruptedException {
-		SoftAssert softAssert = new SoftAssert();
-		WebDriver driver = BaseTest.getDriver();
 		BaseTest.test.info("Driver configured");
 		UserMenuPage ump = new UserMenuPage(driver);
 		CommonUtils.waitForElement(driver, ump.userMenu);
@@ -59,13 +61,15 @@ public class UserMenuTest extends BaseTest {
 		
 	}
 	
-	@Test (priority = 0)
-	public void userMenuDropDown_TC07() {
+	@Test ()
+	public void userMenuDropDown_TC07() throws IOException {
 		
-		System.out.println("userMenuDropDown_TC07");
+		WebDriver driver = BaseTest.getDriver();
+		LoginPage lp = new LoginPage(driver);
+		lp.loginToApp(driver);
 	}
 	
-	@Test (priority = -1)
+	@Test ()
 	public void userMenuDropDown_TC08() {
 		
 		System.out.println("userMenuDropDown_TC08");

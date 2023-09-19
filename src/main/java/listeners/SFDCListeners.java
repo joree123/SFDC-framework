@@ -16,22 +16,27 @@ import utils.CommonUtils;
 
 public class SFDCListeners extends BaseTest implements ITestListener {
 	
+	
+	public void onTestStart(ITestResult res) {
+//		BaseTest.test = extent.createTest(res.getName());
+	}
+	
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		BaseTest.test.pass(MarkupHelper.createLabel(result.getName()+ " PASSED", ExtentColor.GREEN));
+//		BaseTest.test.pass(MarkupHelper.createLabel(result.getName()+ " PASSED", ExtentColor.GREEN));
 		
 		
 	}
 	
 	@Override
 	public void onTestFailure(ITestResult result) {
-		BaseTest.test.fail(MarkupHelper.createLabel(result.getName() + " FAILED", ExtentColor.RED));
-		try {
-			BaseTest.test.addScreenCaptureFromPath(CommonUtils.getScreenshot(BaseTest.getDriver()));
-		} catch (IOException e) {
+//		BaseTest.test.fail(MarkupHelper.createLabel(result.getName() + " FAILED", ExtentColor.RED));
+//		try {
+//			BaseTest.test.addScreenCaptureFromPath(CommonUtils.getScreenshot(BaseTest.getDriver()));
+//		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//			e.printStackTrace();
+//		}
 		
 	}
 
