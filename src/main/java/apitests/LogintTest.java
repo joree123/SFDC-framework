@@ -3,6 +3,7 @@ package apitests;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -17,8 +18,10 @@ import api.utils.CommonUtilities;
 import apireusableutils.RestUtils;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import utils.CommonUtils;
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
+
 
 public class LogintTest extends APIBaseTest {
 	
@@ -59,29 +62,31 @@ public class LogintTest extends APIBaseTest {
 		
 	}
 	
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void getData_TC02() {
 		HashMap<String, String> headers = new HashMap<>();
 		headers.put("Token", token);
 		headers.put("Content-Type", "application/json");
 		
-		Response getUserData = RestUtils.getReq(headers, "/getdata");
+		Response getUserData = RestUtils.getReq(headers, "/getdata").then().statusCode(200).extract().response();
 		
-		System.out.println(getUserData.prettyPrint());
+		System.out.println(getUserData.asPrettyString());
+		
+		List<String> accountNumbers = getUserData.jsonPath().getList("accountno");
+	
+		System.out.println(accountNumbers.size());
+		
+		assertThat(accountNumbers.size(), greaterThan(10000));
+		
+//		System.out.println(getUserData.prettyPrint());
 	}
 
 	
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void addData_TC02() throws JsonProcessingException {
 		HashMap<String, String> headers = new HashMap<>();
 		headers.put("Token", token);
 		headers.put("Content-Type", "application/json");
-		
-//		HashMap<String, String> payload = new HashMap<>();
-//		payload.put("accountno", "");
-//		payload.put("departmentno", "");
-//		payload.put("salary", "");
-//		payload.put("pincode", "");
 		
 		AddUser anu = new AddUser("TA-1234545", "1", "100000", "678987");
 		String sPayload = CommonUtilities.serializeObject(anu);

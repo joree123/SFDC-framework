@@ -1,7 +1,8 @@
 package api.testdata;
 
+
 public class AddUser {
-	
+//	@JsonNaming(PropertyNamingStrategies.LOWER_CASE)
 	private String accountno;
 	private String departmentno;
 	private String salary;

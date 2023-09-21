@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
 import api.testdata.AddUser;
 
@@ -22,6 +23,7 @@ public class CommonUtilities {
 	// To convert object to string and return the same
 	public static String serializeObject(Object user) throws JsonProcessingException {
 		ObjectMapper om = new ObjectMapper();
+		om.setPropertyNamingStrategy(PropertyNamingStrategies.LOWER_CASE);
 		String sJsonPayload = om.writeValueAsString(user);
 		System.out.println(sJsonPayload);
 		return sJsonPayload;
