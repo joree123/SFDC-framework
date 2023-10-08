@@ -13,6 +13,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -28,6 +29,7 @@ import pages.LoginPage;
 
 public class BaseTest {
 	private static ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<>();
+	public  static ThreadLocal<ExtentTest> threadExtentTest = new ThreadLocal<>();
 	
 	protected static ExtentReports extent = new ExtentReports();
 	protected static ExtentSparkReporter spark = null;
@@ -37,7 +39,7 @@ public class BaseTest {
 	
 	@BeforeSuite
 	public void configureReport() {
-//		extent = new ExtentReports();
+		extent = new ExtentReports();
 		spark = new ExtentSparkReporter(new File(FileConstants.REPORT_PATH));
 		extent.attachReporter(spark);
 		
@@ -59,8 +61,8 @@ public class BaseTest {
 //		lp.loginToApp(driver);
 //	}
 	
-	@AfterTest
-	public void tearDown(Method name) {
+	@AfterSuite
+	public void tearDown() {
 		extent.flush();
 		
 	}

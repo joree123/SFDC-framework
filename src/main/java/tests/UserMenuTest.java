@@ -12,13 +12,15 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import com.aventstack.extentreports.ExtentTest;
+
 import constants.FileConstants;
 import listeners.SFDCListeners;
 import pages.LoginPage;
 import pages.UserMenuPage;
 import utils.CommonUtils;
 
-//@Listeners(SFDCListeners.class)
+@Listeners(SFDCListeners.class)
 public class UserMenuTest extends BaseTest {
 	
 //	@BeforeMethod()
@@ -31,32 +33,33 @@ public class UserMenuTest extends BaseTest {
 	public void userMenuDropDown_TC06(Method name) throws IOException, InterruptedException {
 //		SoftAssert softAssert = new SoftAssert();
 		WebDriver driver = BaseTest.getDriver();
+		ExtentTest test = BaseTest.threadExtentTest.get();
 		LoginPage lp = new LoginPage(driver);
 		lp.loginToApp(driver);
-		BaseTest.test.info("Driver configured");
+		test.info("Driver configured");
 		UserMenuPage ump = new UserMenuPage(driver);
 		CommonUtils.waitForElement(driver, ump.userMenu);
-		BaseTest.test.info("Username element is visible");
+		test.info("Username element is visible");
 		ump.userMenu.click();
-		BaseTest.test.info("clicked on usermenu");
+		test.info("clicked on usermenu");
 		Assert.assertTrue(ump.verifyUserMenuItems(), "Failed to verify user menu options");
-		BaseTest.test.info("Verified User Menu items");
+		test.info("Verified User Menu items");
 		Assert.assertTrue(ump.selectMyProfile(), "");
-		BaseTest.test.info("Selected my profile");
+		test.info("Selected my profile");
 		CommonUtils.waitForElement(driver, ump.profilePage);
-		BaseTest.test.info("profile page loaded");
+		test.info("profile page loaded");
 		Assert.assertTrue(ump.isProfilePageVisible(), "");
 		ump.selectEditContact(driver);
 		Assert.assertTrue(ump.verifyEditContactPopUp(driver), "");
-		BaseTest.test.info("Edit contact pop up verified");
+		test.info("Edit contact pop up verified");
 		Assert.assertTrue(ump.verifyLastNameChangeInAboutTab(driver, "Tekarch"), "");
-		BaseTest.test.info("Verified last name change");
+		test.info("Verified last name change");
 		Assert.assertTrue(ump.verifyCreatePost(driver, "Hello welcome to java"));
-		BaseTest.test.info("Verified create post");
+		test.info("Verified create post");
 		Assert.assertTrue(ump.verifyFileUpload(driver, FileConstants.LOGIN_TESTDATA_FILE_PATH));
-		BaseTest.test.info("Verified file upload");
+		test.info("Verified file upload");
 		Assert.assertTrue(ump.verifyPhotoUpload(driver, FileConstants.PROFILE_PHOTO_FILE_PATH));
-		BaseTest.test.info("Verified photo upload");
+		test.info("Verified photo upload");
 		
 		
 	}
@@ -75,11 +78,5 @@ public class UserMenuTest extends BaseTest {
 		System.out.println("userMenuDropDown_TC08");
 	}
 	
-	@Test ()
-	public void userMenuDropDown_TC09() {
-		
-		System.out.println("userMenuDropDown_TC09");
-		throw new ArithmeticException("fsjhfb");
-	}
 
 }

@@ -69,6 +69,8 @@ public class LogintTest extends APIBaseTest {
 		headers.put("Content-Type", "application/json");
 		
 		Response getUserData = RestUtils.getReq(headers, "/getdata").then().statusCode(200).extract().response();
+		System.out.println();
+		
 		
 		System.out.println(getUserData.asPrettyString());
 		
@@ -91,7 +93,9 @@ public class LogintTest extends APIBaseTest {
 		AddUser anu = new AddUser("TA-1234545", "1", "100000", "678987");
 		String sPayload = CommonUtilities.serializeObject(anu);
 		Response adduserdata = RestUtils.postReq(sPayload, headers, "/addData");
+		adduserdata.time();
 		
 		System.out.println(adduserdata.prettyPrint());
+		
 	}
 }
