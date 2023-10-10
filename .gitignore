@@ -2,3 +2,4 @@
 target/*
 test-output/*
 src/main/resources/reports/*
+/target/
